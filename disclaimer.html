@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>このアプリについて | 生成AIパスポート最強ドリル</title>
+<meta name="description" content="脳梗塞リハビリ中の個人開発者Mahi-Mahiが作った生成AIパスポート対策アプリの紹介ページ。全419問・無料・2026年対応。にゃんログ・こころのセルフチェックも紹介。">
+<meta name="keywords" content="生成AIパスポート,にゃんログ,こころのセルフチェック,Mahi-Mahi,脳梗塞,高次脳機能障害,個人開発,無料アプリ,AI学習">
+<link rel="canonical" href="https://75845.github.io/dt/disclaimer.html">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Mahi-Mahi">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="このアプリについて | 生成AIパスポート最強ドリル">
+<meta property="og:description" content="脳梗塞を乗り越えた開発者Mahi-Mahiが作った無料AI学習アプリ。全419問・2026年新シラバス対応。">
+<meta property="og:url" content="https://75845.github.io/dt/disclaimer.html">
+<meta property="og:site_name" content="生成AIパスポート最強ドリル">
+<meta property="og:image" content="https://mahitogawa.github.io/ai/image_0aff13.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="このアプリについて | 生成AIパスポート最強ドリル">
+<meta name="twitter:description" content="脳梗塞リハビリ中の開発者が作った無料AI学習アプリ。全419問・2026年新シラバス対応。">
+<meta name="twitter:image" content="https://mahitogawa.github.io/ai/image_0aff13.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AIドリル">
+<meta name="theme-color" content="#0b0f17">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap');
+
+:root{
+  --bg:#070a10;
+  --bg2:#0c111a;
+  --panel:#0f1520;
+  --border:rgba(255,255,255,0.08);
+  --text:#eef2f8;
+  --muted:#8b93a3;
+  --cyan:#22d3ee;
+  --blue:#4f8bff;
+  --purple:#9b7bf0;
+  --red:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Manrope","Noto Sans JP",-apple-system,'Hiragino Sans',sans-serif;
+  background:
+    radial-gradient(900px 480px at 88% -10%, rgba(79,139,255,0.14), transparent 60%),
+    radial-gradient(700px 420px at -8% 15%, rgba(155,123,240,0.10), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.7;
+}
+
+/* ヘッダー */
+.hd{
+  background:rgba(7,10,16,0.75);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:1px solid var(--border);
+  padding:env(safe-area-inset-top,0) 0 0;
+  position:sticky;top:0;z-index:100;
+}
+.hd-inner{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+}
+.hd-icon{
+  width:38px;height:38px;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(34,211,238,0.28);
+  flex-shrink:0;
+}
+.hd-icon svg{width:19px;height:19px;color:#03080f;}
+.hd-title{font-size:16.5px;font-weight:800;color:var(--text);letter-spacing:0.1px;}
+.hd-back{
+  margin-left:auto;
+  background:rgba(255,255,255,0.06);
+  color:var(--text);border:1px solid var(--border);border-radius:999px;
+  padding:8px 16px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  transition:background .2s,border-color .2s;
+}
+.hd-back:hover{background:rgba(34,211,238,0.1);border-color:rgba(34,211,238,0.4);}
+
+/* メインコンテンツ */
+.main{max-width:640px;margin:0 auto;padding:28px 16px 48px;}
+
+/* 作者カード */
+.author-card{
+  background:var(--panel);
+  border-radius:22px;
+  padding:30px 26px;
+  box-shadow:0 10px 32px rgba(0,0,0,0.35);
+  border:1px solid var(--border);
+  margin-bottom:20px;
+  text-align:center;
+}
+.author-avatar{
+  width:64px;height:64px;margin:0 auto 16px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+  box-shadow:0 8px 22px rgba(79,139,255,0.3);
+}
+.author-name{
+  font-size:20px;font-weight:800;
+  color:var(--text);margin-bottom:6px;letter-spacing:0.1px;
+}
+.author-sub{
+  font-size:13px;font-weight:600;
+  color:var(--muted);margin-bottom:18px;letter-spacing:0.3px;
+}
+.author-story{
+  font-size:14.5px;font-weight:500;
+  color:#c7ceda;line-height:1.9;
+  text-align:left;
+  background:var(--bg2);
+  border-radius:14px;
+  padding:18px 20px;
+  border-left:3px solid var(--cyan);
+}
+
+/* 2アプリ紹介 */
+.apps-title{
+  font-size:12.5px;font-weight:800;
+  color:var(--muted);letter-spacing:.1em;
+  margin:26px 0 12px;
+  text-align:center;
+}
+.app-card{
+  background:var(--panel);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.28);
+  border:1px solid var(--border);
+  margin-bottom:12px;
+  display:flex;gap:14px;align-items:flex-start;
+  text-decoration:none;color:inherit;
+  transition:transform .2s,border-color .2s,background .2s;
+}
+.app-card:hover{border-color:rgba(34,211,238,0.35);background:rgba(255,255,255,0.03);transform:translateY(-2px);}
+.app-card:active{transform:scale(.98);}
+.app-icon{
+  width:52px;height:52px;flex-shrink:0;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+}
+.app-info{}
+.app-name{font-size:15.5px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.app-desc{font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.6;}
+.app-badge{
+  display:inline-block;
+  margin-top:8px;
+  font-size:11.5px;font-weight:800;
+  background:rgba(34,211,238,0.1);color:var(--cyan);
+  border-radius:999px;padding:4px 10px;
+  border:1px solid rgba(34,211,238,0.25);
+}
+.app-badge.purple{background:rgba(155,123,240,0.12);color:var(--purple);border-color:rgba(155,123,240,0.3);}
+.app-badge.blue{background:rgba(79,139,255,0.12);color:var(--blue);border-color:rgba(79,139,255,0.3);}
+
+/* 免責事項 */
+.disclaimer{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px 20px;
+  font-size:12.5px;font-weight:500;
+  color:var(--muted);line-height:1.85;
+  margin-top:20px;
+}
+.disclaimer-title{
+  font-size:13px;font-weight:800;
+  color:#c7ceda;margin-bottom:8px;
+}
+
+/* 音声プレーヤー */
+.audio-wrap{
+  margin-top:18px;
+}
+.audio-btn{
+  width:100%;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  color:#03080f;border:none;border-radius:14px;
+  padding:14px 20px;
+  font-size:14.5px;font-weight:800;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 8px 22px rgba(34,211,238,0.28);
+  transition:transform .2s,box-shadow .2s;
+}
+.audio-btn:active{transform:scale(.97);}
+.audio-btn.playing{background:linear-gradient(135deg,#b91c1c,var(--red));color:#fff;}
+.audio-progress{
+  width:100%;
+  height:5px;
+  background:rgba(255,255,255,0.08);
+  border-radius:999px;
+  margin-top:10px;
+  overflow:hidden;
+  display:none;
+}
+.audio-progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  border-radius:999px;
+  width:0%;
+  transition:width .5s linear;
+}
+.audio-time{
+  font-size:11.5px;font-weight:600;
+  color:var(--muted);
+  text-align:right;
+  margin-top:4px;
+  display:none;
+}
+
+/* フッター */
+.footer{
+  text-align:center;
+  font-size:12px;font-weight:500;
+  color:var(--muted);
+  margin-top:32px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-inner">
+    <div class="hd-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4l-6.3 4.6 2.3-7.2-6-4.6h7.6z"/></svg>
+    </div>
+    <div class="hd-title">このアプリについて</div>
+    <a class="hd-back" href="ai.html">← アプリへ</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 作者紹介 -->
+  <div class="author-card">
+    <div class="author-avatar">🐱</div>
+    <div class="author-name">Mahi-Mahi</div>
+    <div class="author-sub">個人開発者</div>
+    <div class="author-story">
+      脳梗塞で入院し、退院後は高次脳機能障害と向き合う日々が続きました。記憶が消えても、言葉が出なくても、AIは変わらず隣にいてくれました。<br><br>
+      「AIがあれば、もう一度やれる」<br><br>
+      そう思って作ったのが、このドリルです。当事者だからこそ気づけた「本当にやさしいUI」で、誰もがAI時代に取り残されないように。<br><br>
+      今日も開発を続けています。
+    </div>
+
+    <!-- 音声プレーヤー -->
+    <div class="audio-wrap">
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">ボタンを押すと音声が流れます</div>
+      <audio id="myAudio" src="./脳梗塞から生まれた世界一やさしいAI.m4a" preload="none"></audio>
+      <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">
+        <span id="audioIcon">▶</span>
+        <span id="audioBtnText">ストーリーを聴く</span>
+      </button>
+      <div class="audio-progress" id="audioProgress">
+        <div class="audio-progress-bar" id="audioBar"></div>
+      </div>
+      <div class="audio-time" id="audioTime"></div>
+    </div>
+  </div>
+
+  <!-- 3アプリ -->
+  <div class="apps-title">Mahi-Mahiの3つのアプリ</div>
+
+  <a class="app-card" href="ai.html">
+    <div class="app-icon">🤖</div>
+    <div class="app-info">
+      <div class="app-name">生成AIパスポート最強ドリル</div>
+      <div class="app-desc">全419問・2026年新シラバス対応。カテゴリ別演習・略語チートシート・復習モード搭載。</div>
+      <div class="app-badge">今すぐ無料で使える</div>
+    </div>
+  </a>
+
+  <a class="app-card" href="it.html">
+    <div class="app-icon">🖥️</div>
+    <div class="app-info">
+      <div class="app-name">ITパスポート試験対策ドリル</div>
+      <div class="app-desc">全830問・IPA公式過去問300問を含む。本番形式ランダム・分野別演習・ミニ試験搭載。</div>
+      <div class="app-badge purple">今すぐ無料で使える</div>
+    </div>
+  </a>
+
+  <a class="app-card" href="https://mahitogawa.github.io/nyanlog/mental.html" target="_blank" rel="noopener">
+    <div class="app-icon">💙</div>
+    <div class="app-info">
+      <div class="app-name">こころのセルフチェック</div>
+      <div class="app-desc">症状を選ぶだけで気になる病気を参考表示。AIに相談する機能つき。診断ではありません。</div>
+      <div class="app-badge blue">今すぐ無料で使える</div>
+    </div>
+  </a>
+
+  <!-- 免責事項 -->
+  <div class="disclaimer">
+    <div class="disclaimer-title">免責事項</div>
+    本アプリはMahi-Mahiが個人で作成した学習用ドリルです。問題・解説の正確性は保証できません。最新の試験情報・正式な出題範囲は、生成AIパスポートはGUGA公式サイト（guga.or.jp）、ITパスポートはIPA公式サイト（ipa.go.jp）で必ずご確認ください。本アプリの利用により生じた損害について、作者は一切責任を負いません。
+  </div>
+
+
+  <a href="ai.html"
+     style="display:block;text-align:center;margin-top:28px;padding:16px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03080f;border-radius:16px;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 10px 26px rgba(34,211,238,0.28);">
+    TOPに戻る
+  </a>
+
+  <div class="footer">
+    © Mahi-Mahi / Claude・Gemini・ChatGPTと一緒に作りました
+  </div>
+
+</div>
+
+<script>
+function renderGQ(){
+  const area=document.getElementById('gQuizArea');
+  const q=gSelected[gIdx]; gAnswered=false;
+  area.innerHTML=`
+    <div style="font-size:12px;font-weight:900;color:#8b7355;margin-bottom:8px;">問題 ${gIdx+1} / 3</div>
+    <div style="background:#1a3a5c;border-radius:12px;padding:16px;color:#e0f0ff;font-size:15px;font-weight:700;line-height:1.7;margin-bottom:12px;">${q.q}</div>
+    <div id="gChoices" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <div id="gExp" style="display:none;background:#0f2d1f;border:2px solid #1d9e75;border-radius:10px;padding:12px;margin-top:10px;color:#a7f3d0;font-size:13px;font-weight:700;line-height:1.7;"></div>
+    <button id="gNextBtn" onclick="gNext()" style="display:none;width:100%;margin-top:10px;background:#2d6a4f;color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;">次の問題へ ›</button>
+  `;
+  const choicesEl=document.getElementById('gChoices');
+  q.choices.forEach((c,i)=>{
+    const btn=document.createElement('button');
+    btn.style.cssText='display:flex;align-items:flex-start;gap:10px;background:#1a3a5c;border:2px solid #2a5a8c;border-radius:10px;padding:12px 14px;cursor:pointer;width:100%;font-family:inherit;text-align:left;';
+    btn.innerHTML=`<span style="color:#7ec8e3;font-weight:900;font-size:13px;flex-shrink:0;margin-top:2px;">${['A','B','C','D'][i]}</span><span style="color:#e0f0ff;font-size:14px;line-height:1.6;font-weight:700;">${c}</span>`;
+    btn.onclick=()=>answerGQ(i);
+    choicesEl.appendChild(btn);
+  });
+}
+
+function answerGQ(idx){
+  if(gAnswered)return; gAnswered=true;
+  const q=gSelected[gIdx];
+  const btns=document.getElementById('gChoices').children;
+  Array.from(btns).forEach((b,i)=>{
+    b.style.pointerEvents='none';
+    if(i===q.correct){b.style.background='#064e3b';b.style.borderColor='#10b981';}
+    else if(i===idx&&idx!==q.correct){b.style.background='#450a0a';b.style.borderColor='#ef4444';}
+  });
+  const expEl=document.getElementById('gExp');
+  expEl.style.display='block';
+  expEl.textContent=(idx===q.correct?'✅ 正解！ ':'❌ 不正解… ')+q.exp;
+  const nextBtn=document.getElementById('gNextBtn');
+  nextBtn.style.display='block';
+  if(gIdx===2) nextBtn.textContent='結果を見る';
+}
+
+function gNext(){
+  gIdx++;
+  if(gIdx<3){ renderGQ(); }
+  else {
+    document.getElementById('gQuizArea').innerHTML=`
+      <div style="text-align:center;padding:16px;background:#1a3a5c;border-radius:12px;">
+        <div style="color:#e0f0ff;font-size:15px;font-weight:900;line-height:1.8;margin-bottom:16px;">G検定模試、鋭意開発中です</div>
+        <button onclick="startGQuiz()" style="width:100%;padding:10px;background:#2d6a4f;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;">もう一度チャレンジ</button>
+      </div>`;
+  }
+}
+// ===== 音声プレーヤー =====
+const audio = document.getElementById('myAudio');
+const btn   = document.getElementById('audioBtn');
+const icon  = document.getElementById('audioIcon');
+const label = document.getElementById('audioBtnText');
+const prog  = document.getElementById('audioProgress');
+const bar   = document.getElementById('audioBar');
+const time  = document.getElementById('audioTime');
+
+function fmt(s){
+  const m = Math.floor(s/60);
+  const sec = Math.floor(s%60).toString().padStart(2,'0');
+  return m+':'+sec;
+}
+
+function toggleAudio(){
+  if(audio.paused){
+    audio.play();
+    btn.classList.add('playing');
+    icon.textContent = '⏸';
+    label.textContent = '一時停止';
+    prog.style.display = 'block';
+    time.style.display = 'block';
+  } else {
+    audio.pause();
+    btn.classList.remove('playing');
+    icon.textContent = '▶';
+    label.textContent = 'ストーリーを聴く';
+  }
+}
+
+audio.addEventListener('timeupdate', () => {
+  if(audio.duration){
+    const pct = (audio.currentTime / audio.duration) * 100;
+    bar.style.width = pct + '%';
+    time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+  }
+});
+
+audio.addEventListener('ended', () => {
+  btn.classList.remove('playing');
+  icon.textContent = '▶';
+  label.textContent = 'もう一度聴く';
+  bar.style.width = '0%';
+});
+</script>
+</body>
+</html>

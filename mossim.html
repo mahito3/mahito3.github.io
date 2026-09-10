@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MOS操作シミュレーション（ワード・エクセル 一般＋エキスパート／MOS365対応）</title>
+<meta name="description" content="MOS365 一般＋エキスパートレベルの操作場所を、リボンUIの疑似操作で練習するシミュレーションドリル。本番のCBT実技試験に近い形式。">
+<meta name="theme-color" content="#0a1a2e">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-x:hidden;}
+:root{
+  --navy:#0a1a2e; --navy-dark:#050d18;
+  --teal:#22d3ee; --teal-hover:#0891b2;
+  --ink:#e0f7ff; --muted:rgba(255,255,255,.65);
+  --line:rgba(148,163,184,.2);
+  --danger:#f87171; --good:#34d399;
+  --font-size:15.5px;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(34,211,238,.12) 0%, transparent 60%),
+    linear-gradient(170deg, var(--navy) 0%, var(--navy-dark) 45%);
+  background-attachment:fixed;
+  color:var(--ink); min-height:100vh;
+}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;user-select:none;-webkit-user-select:none;font-family:inherit;}
+
+#topHeader{background:var(--navy);padding:16px;border-bottom:1px solid rgba(34,211,238,.25);text-align:center;}
+#topHeader h1{font-size:20px;margin:0;color:#e0f7ff;font-weight:900;}
+#topHeader .tagline{font-size:13px;color:#9fd8e8;margin:6px 0 0;font-weight:700;}
+
+#crosslink{text-align:center;padding:10px 16px;background:var(--navy-dark);border-bottom:1px solid var(--line);}
+#crosslink a{color:var(--teal);font-size:13.5px;font-weight:700;text-decoration:none;margin:0 8px;}
+#crosslink a.sim-link{display:inline-block;margin-top:10px;font-size:16px;font-weight:900;color:#0a1a2e;background:linear-gradient(135deg,#5eead4,#22d3ee);padding:8px 18px;border-radius:999px;box-shadow:0 3px 10px rgba(34,211,238,.35);}
+#crosslink .ctile-row{display:flex;align-items:stretch;justify-content:center;gap:10px;}
+#crosslink a.ctile{display:flex;flex-direction:column;align-items:center;text-decoration:none;width:120px;padding:9px 6px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(34,211,238,.25);margin:0;transition:transform .15s,border-color .15s,background .15s;}
+#crosslink a.ctile:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.7);background:rgba(34,211,238,.08);}
+#crosslink a.ctile:active{background:rgba(34,211,238,.1);}
+#crosslink .ctile-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.4);box-shadow:inset 0 0 6px rgba(34,211,238,.12);margin-bottom:5px;}
+#crosslink .ctile-icon svg{width:18px;height:18px;}
+#crosslink .ctile-title{font-size:12px;font-weight:800;color:var(--ink);line-height:1.3;}
+
+.wrap{max-width:760px;margin:0 auto;padding:16px 12px 70px;}
+
+/* メニュー */
+#menu-screen{
+  background:radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.16) 0%, transparent 60%), linear-gradient(170deg, #0a1a2e 0%, #050d18 100%);
+  border-radius:20px; padding:18px 14px 22px; box-shadow:0 8px 32px rgba(34,211,238,0.14);
+}
+.notice{font-size:13px;color:var(--muted);line-height:1.7;background:rgba(255,255,255,.04);border-left:4px solid var(--teal);padding:12px 14px;border-radius:8px;margin-bottom:16px;}
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.menu button{
+  background:radial-gradient(ellipse at 50% 20%, rgba(34,211,238,0.12) 0%, transparent 70%), linear-gradient(170deg, #0a1a2e 0%, #071019 100%);
+  color:#d7f5fb; font-size:13px; padding:14px 6px; border-radius:14px;
+  border:1px solid rgba(34,211,238,.28); font-weight:700; line-height:1.4;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
+  transition:transform .15s,border-color .15s,box-shadow .15s;
+}
+.menu button:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.7);box-shadow:0 6px 16px rgba(34,211,238,.18);}
+.menu button:active{transform:scale(.96);}
+.gicon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:8px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.4);box-shadow:inset 0 0 8px rgba(34,211,238,.12);}
+.mtitle{margin:0;}
+.msub{display:block;font-weight:500;font-size:.82em;opacity:.75;margin-top:3px;}
+.sub-heading.expert{color:#fbbf24;font-size:13.5px;font-weight:900;margin:18px 0 8px;text-align:center;}
+.menu button.expert-cat{border-color:rgba(251,191,36,.35);}
+.menu button.expert-cat .gicon{background:rgba(251,191,36,.1);}
+.menu button.expert-cat:hover{border-color:rgba(251,191,36,.75);box-shadow:0 6px 16px rgba(251,191,36,.2);}
+.menu button.expert-all{border:2px solid #fbbf24;box-shadow:0 0 14px rgba(251,191,36,.25);}
+.menu button.expert-all:hover{box-shadow:0 0 14px rgba(251,191,36,.25),0 6px 16px rgba(251,191,36,.25);}
+
+/* シミュレーション画面 */
+#sim-screen{display:none;}
+#sim-screen.show{display:block;}
+.sim-back-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.sim-back{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,.14);border:1.5px solid rgba(34,211,238,.5);color:var(--teal);font-size:15px;font-weight:800;margin-bottom:0;padding:9px 18px;border-radius:10px;cursor:pointer;transition:background .15s;}
+.sim-back:hover{background:rgba(34,211,238,.24);}
+.sim-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:800;color:var(--teal);}
+.instruction-bar{
+  background:linear-gradient(135deg, rgba(34,211,238,.14), rgba(139,124,246,.1));
+  border:1.5px solid rgba(34,211,238,.4); border-radius:14px; padding:14px 16px; margin-bottom:12px;
+}
+.instruction-label{font-size:11.5px;font-weight:800;color:var(--teal);letter-spacing:.06em;margin-bottom:4px;}
+.instruction-text{font-size:var(--font-size);font-weight:800;color:#f0feff;line-height:1.5;}
+.feedback{min-height:20px;font-size:13.5px;font-weight:800;margin-bottom:8px;}
+.feedback.ok{color:var(--good);}
+.feedback.ng{color:var(--danger);}
+#font-controls{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-bottom:0;}
+#font-controls span{font-size:12px;font-weight:800;color:var(--muted);margin-right:2px;}
+.font-btn{padding:4px 10px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;font-size:12.5px;font-weight:900;border-radius:6px;transition:background .15s;}
+.font-btn.active{background:var(--teal);border-color:var(--teal);color:#04141f;}
+.font-btn:hover:not(.active){background:rgba(255,255,255,.15);}
+
+/* リボンUI */
+.app-window{
+  --app-accent: #22d3ee;
+  font-family:"Segoe UI","Yu Gothic UI",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  background:#201f1e;border-radius:8px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.5);border:1px solid #3b3a39;
+}
+.app-window.app-word{--app-accent:#3a8ee6;}
+.app-window.app-excel{--app-accent:#3fa76d;}
+.window-titlebar{display:flex;align-items:center;gap:7px;background:#201f1e;padding:8px 12px;border-bottom:1px solid #3b3a39;}
+.win-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;cursor:pointer;}
+.win-dot.red{background:#ff5f57;}
+.win-dot.yellow{background:#febc2e;}
+.win-dot.green{background:#28c840;}
+.win-dot:hover{filter:brightness(1.15);transform:scale(1.08);}
+.win-title{flex:1;text-align:center;font-size:12px;color:#a19f9d;font-weight:600;margin-right:38px;}
+/* 最小化：タイトルバーだけ残してリボン以下を畳む */
+.app-window.minimized .ribbon-tabs,
+.app-window.minimized .ribbon-body,
+.app-window.minimized .canvas-wrap,
+.app-window.minimized .hint-btn{display:none;}
+.app-window.minimized .win-title::after{content:" （クリックで復元）";font-weight:400;color:#918f8c;font-size:11px;}
+.app-window.minimized .win-title{cursor:pointer;}
+/* 元に戻す（ウィンドウ表示）：全画面ではなく箱型に戻す */
+#sim-screen .app-window.windowed{
+  width:auto;max-width:900px;position:static;left:auto;right:auto;margin-left:auto;margin-right:auto;
+  border-radius:8px;border:1px solid #3b3a39;box-shadow:0 8px 28px rgba(0,0,0,.4);
+}
+.ribbon-tabs{display:flex;flex-wrap:wrap;background:#201f1e;border-bottom:1px solid #3b3a39;padding:0 4px;}
+.ribbon-tab{background:none;border:none;color:#c8c6c4;font-size:13px;font-weight:600;padding:9px 14px;border-bottom:2px solid transparent;}
+.ribbon-tab.active{color:#fff;border-bottom-color:var(--app-accent);background:rgba(255,255,255,.04);}
+.ribbon-body{display:flex;flex-wrap:wrap;gap:0;background:#201f1e;padding:8px 6px;min-height:96px;}
+.ribbon-group{display:flex;flex-direction:column;align-items:center;padding:2px 10px;border-right:1px solid #3b3a39;}
+.ribbon-group:last-child{border-right:none;}
+.ribbon-btns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:220px;}
+.ribbon-btn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:none;border:1px solid transparent;border-radius:4px;
+  padding:5px 7px;min-width:52px;color:#e6e6e6;
+}
+.ribbon-btn:hover{background:#383735;border-color:#4a4846;}
+.ribbon-btn:active{background:#3f3d3b;}
+.ribbon-btn .ic{font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;}
+.ribbon-btn .ic svg{width:1em;height:1em;display:block;}
+.ribbon-btn .lb{font-size:9.5px;font-weight:500;text-align:center;line-height:1.2;color:#c8c6c4;white-space:normal;}
+.ribbon-btn.flash-ok{background:rgba(52,211,153,.3)!important;border-color:var(--good)!important;}
+.ribbon-btn.flash-ng{background:rgba(248,113,113,.3)!important;border-color:var(--danger)!important;}
+.ribbon-group-label{font-size:9px;color:#918f8c;margin-top:4px;}
+
+.canvas-area{background:#e9edf2;min-height:170px;padding:16px;}
+.canvas-doc{background:#fff;border-radius:4px;padding:18px;max-width:420px;margin:0 auto;box-shadow:0 2px 10px rgba(0,0,0,.15);color:#1a1a1a;font-size:13px;line-height:1.8;}
+.canvas-doc .sel{background:#bcd6ff;}
+.canvas-grid{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.15);}
+.canvas-grid table{width:100%;border-collapse:collapse;font-size:11.5px;color:#333;}
+.canvas-grid th{background:#f1f3f5;color:#666;font-weight:700;padding:4px;border:1px solid #dcdfe3;}
+.canvas-grid td{padding:4px 8px;border:1px solid #dcdfe3;text-align:center;}
+.canvas-grid td.sel{background:#bcd6ff;outline:2px solid #1a73e8;outline-offset:-2px;}
+
+.hint-btn{display:block;width:100%;margin:0;padding:9px 12px;background:#201f1e;border:none;border-bottom:1px solid #3b3a39;border-radius:0;color:var(--muted);font-size:13.5px;font-weight:800;}
+
+/* 結果 */
+#end-screen{display:none;}
+#end-screen.show{display:block;}
+.end-card{background:var(--navy);border:1px solid var(--line);border-radius:20px;padding:24px 20px;text-align:center;margin-bottom:16px;}
+.end-score{font-size:40px;font-weight:900;color:var(--teal);margin:6px 0;}
+.end-msg{font-size:14px;color:var(--muted);font-weight:700;line-height:1.7;}
+.detail-title{font-size:12.5px;color:var(--muted);font-weight:700;margin:14px 0 6px;text-align:left;}
+.detail-wrap{max-height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;}
+.detail-table{width:100%;border-collapse:collapse;font-size:12.5px;text-align:left;}
+.detail-table th{background:rgba(34,211,238,.1);color:var(--ink);padding:6px 8px;position:sticky;top:0;}
+.detail-table td{padding:6px 8px;border-top:1px solid var(--line);}
+.act-btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:15px;font-weight:900;background:var(--teal);color:#04141f;margin-top:16px;}
+
+.site-footer{text-align:center;padding:20px 16px;color:var(--muted);font-size:12.5px;font-weight:700;border-top:1px solid var(--line);margin-top:20px;}
+.site-footer a{color:var(--teal);text-decoration:none;font-weight:800;}
+
+/* PC（広い画面）向けに拡大表示 */
+@media (min-width:900px){
+  .wrap{max-width:980px;}
+  #topHeader h1{font-size:26px;}
+  #topHeader .tagline{font-size:15px;}
+  .notice{font-size:14.5px;padding:16px 18px;}
+  .menu button{font-size:15px;padding:20px 10px;}
+  .gicon{width:48px;height:48px;font-size:24px;margin-bottom:10px;}
+  .msub{font-size:.85em;}
+  .instruction-label{font-size:13px;}
+  :root{--font-size:19px;}
+  .feedback{font-size:15px;}
+  .hint-btn{font-size:15px;padding:14px;}
+  .end-score{font-size:52px;}
+  .end-msg{font-size:15.5px;}
+  .detail-table{font-size:14px;}
+  .act-btn{font-size:16px;padding:16px;}
+}
+
+/* PCで実際にWord/Excelを開いているような「全画面ウィンドウ」風に見せる */
+@media (min-width:1100px){
+  .wrap{max-width:1400px;}
+  .window-titlebar{padding:11px 14px;}
+  .win-dot{width:13px;height:13px;}
+  .win-title{font-size:13.5px;}
+  .ribbon-tab{font-size:16px;padding:14px 24px;}
+  .ribbon-body{min-height:170px;padding:20px 16px;}
+  .ribbon-group{padding:6px 20px;}
+  .ribbon-btns{max-width:280px;}
+  .ribbon-btn{min-width:82px;padding:11px 14px;}
+  .ribbon-btn .ic{font-size:24px;}
+  .ribbon-btn .lb{font-size:12.5px;}
+  .ribbon-group-label{font-size:11px;}
+  .canvas-area{min-height:460px;display:flex;align-items:center;justify-content:center;padding:32px;}
+  .canvas-doc{max-width:820px;width:100%;font-size:16px;padding:40px;min-height:380px;}
+  .canvas-grid{width:100%;max-width:960px;}
+  .canvas-grid table{font-size:15px;}
+  .canvas-grid td,.canvas-grid th{padding:12px 22px;}
+}
+@media (min-width:900px) and (max-width:1099px){
+  .ribbon-tab{font-size:15px;padding:12px 20px;}
+  .ribbon-body{min-height:130px;padding:16px 12px;}
+  .ribbon-group{padding:4px 16px;}
+  .ribbon-btn{min-width:72px;padding:9px 12px;}
+  .ribbon-btn .ic{font-size:21px;}
+  .ribbon-btn .lb{font-size:11.5px;}
+  .ribbon-group-label{font-size:10.5px;}
+  .canvas-doc{max-width:640px;font-size:15px;padding:26px;}
+  .canvas-grid table{font-size:14px;}
+  .canvas-grid td,.canvas-grid th{padding:8px 16px;}
+}
+
+/* PCでは本物のOfficeを全画面で開いてるように、リボン部分を画面幅いっぱいに広げる（隙間・角丸・影なし） */
+@media (min-width:900px){
+  #sim-screen .app-window{
+    width:100vw;
+    max-width:100vw;
+    position:relative;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+    border-radius:0;
+    border-left:none;
+    border-right:none;
+    box-shadow:none;
+  }
+  #sim-screen .sim-top,
+  #sim-screen .sim-back-row,
+  #sim-screen .instruction-bar,
+  #sim-screen .feedback{
+    max-width:1400px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  #sim-screen .canvas-area{min-height:58vh;}
+}
+
+/* ===== モチベ猫ギミック ===== */
+.app-window{ position:relative; }
+#catToast{
+  position:absolute; left:50%; top:50%; z-index:50;
+  transform:translate(-50%,-50%) scale(.6);
+  background:linear-gradient(135deg,#0f2942,#0a1a2e);
+  border:1.5px solid rgba(34,211,238,.5);
+  box-shadow:0 8px 28px rgba(0,0,0,.55), 0 0 0 1px rgba(34,211,238,.08) inset;
+  border-radius:16px;
+  padding:14px 22px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  pointer-events:none;
+  opacity:0;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  max-width:82%;
+  text-align:center;
+}
+#catToast.show{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+#catToast .cat-emoji{ font-size:38px; line-height:1; animation:catBounce .6s ease infinite alternate; }
+#catToast .cat-msg{ font-size:14.5px; font-weight:800; color:#ffffff; white-space:pre-line; }
+#catToast.wrong{ border-color:rgba(248,113,113,.5); }
+#catToast.streak{ border-color:rgba(250,204,21,.7); box-shadow:0 8px 24px rgba(0,0,0,.4), 0 0 18px rgba(250,204,21,.35); }
+#catToast.streak .cat-msg{ color:#fde68a; }
+@keyframes catBounce{ from{ transform:translateY(0) rotate(-4deg);} to{ transform:translateY(-4px) rotate(4deg);} }
+.cat-mascot{ font-size:56px; text-align:center; margin:2px 0 4px; animation:catBounce 1.1s ease infinite alternate; }
+@media (max-width:480px){ #catToast .cat-msg{ font-size:13px; } #catToast .cat-emoji{ font-size:32px; } }
+</style>
+</head>
+<body>
+
+<div id="topHeader">
+  <h1>🖱️ MOS操作シミュレーション</h1>
+  <p class="tagline">リボンのどこを押すか当てる、本番に近い練習（MOS365対応・PC推奨）</p>
+</div>
+
+<div id="crosslink">
+  <div class="ctile-row">
+    <a href="index.html" class="ctile">
+      <div class="ctile-icon" aria-hidden="true">🏠</div>
+      <div class="ctile-title">TOP</div>
+    </a>
+    <a href="ai.html" class="ctile">
+      <div class="ctile-icon" aria-hidden="true">🐱</div>
+      <div class="ctile-title">生成AIパスポート</div>
+    </a>
+    <a href="it.html" class="ctile">
+      <div class="ctile-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><polygon points="6,14 12,4 16,14" fill="#22d3ee"/><polygon points="34,14 28,4 24,14" fill="#22d3ee"/><circle cx="20" cy="22" r="14" fill="#22d3ee"/><circle cx="15" cy="21" r="2.2" fill="#0a1a2e"/><circle cx="25" cy="21" r="2.2" fill="#0a1a2e"/><polygon points="20,25 18,27.5 22,27.5" fill="#0a1a2e"/></svg></div>
+      <div class="ctile-title">ITパスポート</div>
+    </a>
+  </div>
+  <a href="mos.html" class="sim-link">📊 4択ドリルに戻る</a>
+</div>
+
+<div class="wrap">
+
+  <div id="menu-screen">
+    <div class="notice">💡 本物のMOS試験は「実際にWord・Excelを操作する実技試験」。ここではリボン（画面上部のボタン集）を再現して、「指示された操作をするにはどこを押せばいいか」を練習できるよ。文字入力やドラッグ操作までは再現していない、簡易シミュレーションだよ。</div>
+    <div class="menu">
+      <button onclick="startSim('word')"><div class="gicon">📝</div><div class="mtitle">ワード操作編</div><div class="msub">（20問）</div></button>
+      <button onclick="startSim('excel')"><div class="gicon">📈</div><div class="mtitle">エクセル操作編</div><div class="msub">（20問）</div></button>
+      <button onclick="startSim('all')"><div class="gicon">🔁</div><div class="mtitle">ワード＋エクセル<br>混合</div><div class="msub">（全40問）</div></button>
+    </div>
+    <div class="sub-heading expert">🏆 エキスパート編</div>
+    <div class="menu">
+      <button class="expert-cat" onclick="startSim('wordExpert')"><div class="gicon">📝</div><div class="mtitle">ワード操作編<br>（上級）</div><div class="msub">（10問）</div></button>
+      <button class="expert-cat" onclick="startSim('excelExpert')"><div class="gicon">📈</div><div class="mtitle">エクセル操作編<br>（上級）</div><div class="msub">（10問）</div></button>
+      <button class="expert-all" onclick="startSim('allExpert')"><div class="gicon">🏆</div><div class="mtitle">エキスパート<br>混合</div><div class="msub">（全20問）</div></button>
+    </div>
+  </div>
+
+  <div id="sim-screen">
+    <div class="sim-top"><span id="simProgress">1 / 10</span><span id="simScoreLabel">一発正解 0</span></div>
+    <div class="sim-back-row">
+      <button class="sim-back" onclick="exitSim()">← メニューに戻る</button>
+      <div id="font-controls">
+        <span>文字サイズ</span>
+        <button class="font-btn" data-size="small" onclick="setFont('small')">小</button>
+        <button class="font-btn active" data-size="medium" onclick="setFont('medium')">中</button>
+        <button class="font-btn" data-size="large" onclick="setFont('large')">大</button>
+      </div>
+    </div>
+    <div class="instruction-bar">
+      <div class="instruction-label">📋 次の操作を行いなさい</div>
+      <div class="instruction-text" id="instructionText"></div>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="app-window" id="appWindow">
+      <div class="window-titlebar">
+        <span class="win-dot red" onclick="closeWindow()" title="閉じる（メニューに戻る）"></span><span class="win-dot yellow" onclick="toggleMinimize()" title="最小化"></span><span class="win-dot green" onclick="toggleMaximize()" title="最大化 / 元に戻す"></span>
+        <span class="win-title" id="windowTitle">文書1 - Word</span>
+      </div>
+      <button class="hint-btn" onclick="showHint()">💡 ヒント（正解のタブを表示）</button>
+      <div class="ribbon-tabs" id="ribbonTabs"></div>
+      <div class="ribbon-body" id="ribbonBody"></div>
+      <div class="canvas-wrap">
+        <div class="canvas-area" id="canvasArea"></div>
+      </div>
+      <div id="catToast"><span class="cat-emoji" id="catToastEmoji">😸</span><span class="cat-msg" id="catToastMsg"></span></div>
+    </div>
+  </div>
+
+  <div id="end-screen">
+    <div class="end-card">
+      <div style="font-size:14px;color:var(--muted);font-weight:700;">結果</div>
+      <div class="cat-mascot" id="endCatFace">😺</div>
+      <div class="end-score" id="endScore">0 / 0</div>
+      <div class="end-msg" id="endMsg"></div>
+      <div class="end-msg" id="endStreakMsg" style="color:#fde68a;"></div>
+    </div>
+    <div class="detail-title">📋 操作詳細</div>
+    <div class="detail-wrap">
+      <table class="detail-table">
+        <tr><th>指示内容</th><th>結果</th></tr>
+        <tbody id="detailBody"></tbody>
+      </table>
+    </div>
+    <button class="act-btn" onclick="showMenu()">🔄 メニューに戻る</button>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  © Mahito｜MOSは Microsoft の登録商標です。本アプリは非公式の学習用シミュレーションであり、公式試験そのものではありません。
+</div>
+
+<script>
+// ===== 文字サイズ切替 =====
+const FONT_MAP = {small:'16px', medium:'20px', large:'24px'};
+function setFont(size){
+  document.documentElement.style.setProperty('--font-size', FONT_MAP[size] || FONT_MAP.medium);
+  document.querySelectorAll('.font-btn').forEach(b=>b.classList.toggle('active', b.dataset.size===size));
+  try{ localStorage.setItem('mosFontSize', size); }catch(e){}
+}
+(function(){
+  try{
+    const s = localStorage.getItem('mosFontSize');
+    if(s && FONT_MAP[s]) setFont(s);
+  }catch(e){}
+})();
+
+// ===== 線画アイコン（絵文字の代わりに使う、オリジナルのシンプルな線アイコン） =====
+const ICON_MAP = {
+  paste:'clipboard', copy:'copy', highlight:'highlighter', bullets:'bullets',
+  'align-center':'alignLines', align:'alignLines', 'align-objects':'alignLines',
+  'line-spacing':'lineSpacing',
+  borders:'grid', table:'grid', 'from-table-range':'grid', gridlines:'grid', 'gridlines-view':'grid', 'gridlines-check':'grid', 'pivot-table':'grid',
+  find:'magnifier', 'find-select':'magnifier',
+  replace:'swap',
+  'cover-page':'doc', 'blank-page':'doc', 'from-text-csv':'doc',
+  'page-break':'docBreak', breaks:'docBreak', 'page-break-preview':'docBreak',
+  pictures:'image',
+  shapes:'shape', icons:'shape',
+  smartart:'puzzle', 'get-add-ins':'puzzle', 'my-add-ins':'puzzle', 'data-model':'puzzle',
+  chart:'barChart', 'recommended-charts':'barChart', 'column-chart':'barChart', 'pivot-chart':'barChart',
+  'line-chart':'lineChart', trendline:'lineChart', 'sparkline-line':'lineChart', 'sparkline-column':'barChart',
+  'pie-chart':'pieChart',
+  header:'arrowUp',
+  footer:'arrowDown',
+  textbox:'textbox', 'header-footer':'textbox',
+  wordart:'palette', theme:'palette', themes:'palette', 'fill-color':'palette', 'style-set':'palette',
+  'insert-object':'chain', 'insert-link':'chain', 'cross-reference':'chain', 'existing-connections':'chain', 'edit-links':'chain', consolidate:'chain',
+  watermark:'droplet',
+  margins:'marginBox', 'print-area':'marginBox',
+  orientation:'refresh', 'refresh-all':'refresh', 'calc-now':'refresh', 'toc-update':'refresh', 'reapply-filter':'refresh',
+  size:'resize', 'scale-percent':'resize', zoom:'resize', 'zoom-100':'resize', 'scale-width':'resize', 'scale-height':'resize', 'zoom-selection':'resize',
+  columns:'columns2',
+  'wrap-text':'wrapArrow',
+  toc:'listDoc', 'insert-toc-figures':'listDoc', 'reviewing-pane':'listDoc', 'format-as-table':'listDoc',
+  'toc-add-text':'plusDoc',
+  'show-notes':'eye', 'show-formulas':'eye', 'show-markup':'eye', 'read-mode':'eye', 'watch-window':'eye',
+  citation:'quote', 'mark-citation':'quote',
+  'manage-sources':'card', 'name-manager':'card', 'query-properties':'card', 'insert-index':'card', 'mark-entry':'card', 'define-name':'card', 'queries-connections':'card',
+  bibliography:'book', 'insert-toa':'book', thesaurus:'book',
+  'insert-caption':'tag',
+  spelling:'check', 'accept-change':'check', 'data-validation':'check',
+  'read-aloud':'speaker',
+  'accessibility-check':'accessibility',
+  translate:'globe', 'from-web':'globe',
+  'new-comment':'comment',
+  'delete-comment':'trash', 'remove-duplicates':'trash',
+  'next-comment':'arrowRight', 'next-change':'arrowRight',
+  'track-changes':'pencil',
+  'record-macro':'recordDot',
+  'reject-change':'undo',
+  'compare-docs':'scaleBalance',
+  'restrict-editing':'lock', 'protect-document':'lock', 'protect-sheet':'lock', 'protect-workbook':'lock',
+  'print-layout':'printer',
+  ruler:'ruler',
+  'nav-pane':'compass',
+  'recent-sources':'clock',
+  'merge-center':'mergeCells',
+  'conditional-formatting':'target',
+  'cell-styles':'brush',
+  'insert-cell':'plus',
+  'delete-cell':'minus',
+  filter:'funnel', 'insert-slicer':'funnel', 'filter-advanced':'funnel',
+  'clear-filter':'funnelX',
+  'calc-options':'gear',
+  'error-check':'warning',
+  'text-to-columns':'scissors',
+  'flash-fill':'bolt',
+  'what-if-analysis':'shuffle',
+  'insert-timeline':'calendar', 'forecast-sheet':'calendar',
+  group:'groupBracket', 'group-objects':'groupBracket', ungroup:'groupBracket',
+  'normal-view':'window', 'custom-views':'window', 'new-window':'window',
+  split:'windowSplit',
+  'print-titles':'pin', 'freeze-panes':'pin',
+  sort:'sortArrows', 'sort-filter':'sortArrows',
+  'get-data':'database',
+};
+
+const ICONS = {
+  clipboard:'<rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/>',
+  copy:'<rect x="8" y="8" width="11" height="13" rx="1.5"/><path d="M5 16V5a1.5 1.5 0 0 1 1.5-1.5H15"/>',
+  highlighter:'<path d="M4 20l3-1 9-9-2-2-9 9-1 3z"/><path d="M14 8l2-2 2 2-2 2"/>',
+  bullets:'<circle cx="5" cy="6" r="1.3"/><circle cx="5" cy="12" r="1.3"/><circle cx="5" cy="18" r="1.3"/><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/>',
+  alignLines:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',
+  lineSpacing:'<path d="M7 3v18"/><path d="M4 7l3-3 3 3"/><path d="M4 17l3 3 3-3"/><line x1="13" y1="6" x2="20" y2="6"/><line x1="13" y1="12" x2="20" y2="12"/><line x1="13" y1="18" x2="20" y2="18"/>',
+  grid:'<rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/>',
+  magnifier:'<circle cx="10" cy="10" r="6"/><line x1="15" y1="15" x2="20" y2="20"/>',
+  swap:'<path d="M4 8h13M13 4l4 4-4 4"/><path d="M20 16H7M11 12l-4 4 4 4"/>',
+  doc:'<path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/>',
+  docBreak:'<path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><line x1="5" y1="14" x2="19" y2="14" stroke-dasharray="2,2"/>',
+  image:'<rect x="3" y="4" width="18" height="16" rx="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M3 17l5-5 4 4 3-3 6 6"/>',
+  shape:'<rect x="3" y="3" width="10" height="10" rx="2"/><circle cx="16" cy="16" r="5"/>',
+  puzzle:'<path d="M9 4h4v2.2a1.8 1.8 0 1 0 0 3.6V12h4v2.2a1.8 1.8 0 1 1 0 3.6V20H13v-2.2a1.8 1.8 0 1 0-4 0V20H5v-4h2.2a1.8 1.8 0 1 0 0-4H5V8h4V4z"/>',
+  barChart:'<line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="12" width="3" height="8"/><rect x="11" y="8" width="3" height="12"/><rect x="16" y="4" width="3" height="16"/>',
+  lineChart:'<polyline points="4,16 9,10 13,13 20,5"/><line x1="4" y1="20" x2="20" y2="20"/>',
+  pieChart:'<circle cx="12" cy="12" r="8"/><path d="M12 4v8l7 3"/>',
+  arrowUp:'<line x1="12" y1="20" x2="12" y2="6"/><path d="M7 11l5-5 5 5"/>',
+  arrowDown:'<line x1="12" y1="4" x2="12" y2="18"/><path d="M7 13l5 5 5-5"/>',
+  textbox:'<rect x="3" y="6" width="18" height="12" rx="1.5"/><line x1="7" y1="10" x2="17" y2="10"/><line x1="7" y1="14" x2="14" y2="14"/>',
+  palette:'<path d="M4 12l7-7 7 7-7 7-7-7z"/><path d="M17 15c1 1 2 2 2 3a2 2 0 1 1-4 0c0-1 1-2 2-3z"/>',
+  chain:'<path d="M9 15l6-6"/><path d="M13 4l1-1a3 3 0 0 1 4 4l-2 2"/><path d="M11 20l-1 1a3 3 0 0 1-4-4l2-2"/>',
+  droplet:'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>',
+  marginBox:'<rect x="4" y="4" width="16" height="16" rx="1"/><rect x="7.5" y="7.5" width="9" height="9" rx="0.5" stroke-dasharray="2,2"/>',
+  refresh:'<path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M18 4v4h-4"/><path d="M6 20v-4h4"/>',
+  resize:'<path d="M9 3H3v6"/><path d="M15 21h6v-6"/><path d="M21 3l-8 8"/><path d="M3 21l8-8"/>',
+  columns2:'<rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/>',
+  wrapArrow:'<path d="M4 8h13a3 3 0 0 1 0 6H10"/><path d="M13 11l-3 3 3 3"/>',
+  listDoc:'<rect x="4" y="3" width="16" height="18" rx="1.5"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/>',
+  plusDoc:'<rect x="4" y="3" width="16" height="18" rx="1.5"/><line x1="12" y1="9" x2="12" y2="15"/><line x1="9" y1="12" x2="15" y2="12"/>',
+  eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  quote:'<path d="M7 8a3 3 0 0 0-3 3v5h5v-5H6a3 3 0 0 1 3-3V6a5 5 0 0 0-2 2z"/><path d="M17 8a3 3 0 0 0-3 3v5h5v-5h-3a3 3 0 0 1 3-3V6a5 5 0 0 0-2 2z"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="7" y1="14" x2="13" y2="14"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h6v18H6a2 2 0 0 0-2 2V5z"/><path d="M20 5a2 2 0 0 0-2-2h-6v18h6a2 2 0 0 1 2 2V5z"/>',
+  tag:'<path d="M12 3h6a2 2 0 0 1 2 2v6l-9 9-8-8 9-9z"/><circle cx="15" cy="8" r="1.3"/>',
+  check:'<path d="M4 12l5 5L20 6"/>',
+  speaker:'<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 7a7 7 0 0 1 0 10"/>',
+  accessibility:'<circle cx="12" cy="4.5" r="1.8"/><path d="M4 9h16"/><path d="M12 9v6"/><path d="M8 9l-2 10"/><path d="M16 9l2 10"/><path d="M8 13h8"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/>',
+  comment:'<path d="M4 4h16v11H9l-5 4V4z"/>',
+  trash:'<path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/>',
+  arrowRight:'<line x1="4" y1="12" x2="18" y2="12"/><path d="M13 6l6 6-6 6"/>',
+  pencil:'<path d="M4 20l1-4 12-12 3 3-12 12-4 1z"/>',
+  recordDot:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+  undo:'<path d="M8 8H4V4"/><path d="M4 8a9 9 0 1 1 2 10"/>',
+  scaleBalance:'<path d="M12 3v18"/><path d="M5 7h6M13 7h6"/><path d="M5 7l-3 6a3 3 0 0 0 6 0l-3-6z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0l-3-6z"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  printer:'<rect x="6" y="9" width="12" height="7" rx="1"/><path d="M8 9V4h8v5"/><path d="M8 16v4h8v-4"/>',
+  ruler:'<rect x="3" y="9" width="18" height="6" rx="1"/><line x1="7" y1="9" x2="7" y2="12"/><line x1="11" y1="9" x2="11" y2="13"/><line x1="15" y1="9" x2="15" y2="12"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6 6-2z"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>',
+  mergeCells:'<rect x="3" y="6" width="8" height="12" rx="1"/><rect x="13" y="6" width="8" height="12" rx="1"/><path d="M9 9l-2 3 2 3"/><path d="M15 9l2 3-2 3"/>',
+  target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
+  brush:'<path d="M9 15l-4 4 4 1 1-4z"/><path d="M9 15l9-9 3 3-9 9"/>',
+  plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+  minus:'<line x1="5" y1="12" x2="19" y2="12"/>',
+  funnel:'<path d="M4 5h16l-6 8v6l-4-2v-4z"/>',
+  funnelX:'<path d="M4 5h16l-6 8v6l-4-2v-4z"/><line x1="15" y1="3" x2="20" y2="8"/><line x1="20" y1="3" x2="15" y2="8"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+  warning:'<path d="M12 3l10 18H2z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/>',
+  scissors:'<circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><line x1="20" y1="4" x2="7.5" y2="16.5"/><line x1="8.5" y1="7.5" x2="20" y2="20"/>',
+  bolt:'<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>',
+  shuffle:'<path d="M4 6h4l9 12h3"/><path d="M4 18h4l3-4"/><path d="M16 6h4"/><path d="M17 3l3 3-3 3"/><path d="M17 15l3 3-3 3"/>',
+  calendar:'<rect x="4" y="5" width="16" height="15" rx="1.5"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>',
+  groupBracket:'<path d="M8 4H6a2 2 0 0 0-2 2v4a2 2 0 0 1-1 1.7A2 2 0 0 1 4 13v4a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v4a2 2 0 0 0 1 1.7A2 2 0 0 0 20 13v4a2 2 0 0 1-2 2h-2"/>',
+  window:'<rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/>',
+  windowSplit:'<rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="12" y1="4" x2="12" y2="20"/>',
+  pin:'<path d="M12 2a5 5 0 0 0-5 5c0 4 5 10 5 10s5-6 5-10a5 5 0 0 0-5-5z"/><circle cx="12" cy="7" r="1.6"/>',
+  sortArrows:'<path d="M7 4v14"/><path d="M4 15l3 3 3-3"/><path d="M17 20V6"/><path d="M14 9l3-3 3 3"/>',
+  database:'<path d="M12 3c4 0 7 1.3 7 3s-3 3-7 3-7-1.3-7-3 3-3 7-3z"/><path d="M5 6v12c0 1.7 3 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3 3 7 3s7-1.3 7-3"/>'
+};
+
+function iconHtml(id, fallback){
+  const key = ICON_MAP[id];
+  if(key && ICONS[key]){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+ICONS[key]+'</svg>';
+  }
+  return fallback;
+}
+
+// ===== リボン定義（アプリごとのタブ・グループ・ボタン） =====
+const RIBBONS = {
+  word: {
+    tabs: ['ホーム','挿入','デザイン','レイアウト','参考資料','校閲','表示'],
+    groups: {
+      'ホーム': [
+        {label:'クリップボード', btns:[{id:'paste',label:'貼り付け',icon:'📋'},{id:'copy',label:'コピー',icon:'📄'}]},
+        {label:'フォント', btns:[{id:'bold',label:'太字',icon:'B'},{id:'italic',label:'斜体',icon:'I'},{id:'underline',label:'下線',icon:'U'},{id:'strike',label:'取消線',icon:'S'},{id:'highlight',label:'蛍光ペン',icon:'🖍'}]},
+        {label:'段落', btns:[{id:'bullets',label:'箇条書き',icon:'≡'},{id:'numbering',label:'段落番号',icon:'①'},{id:'align-center',label:'中央揃え',icon:'≣'},{id:'line-spacing',label:'行間隔',icon:'↕'},{id:'borders',label:'罫線',icon:'▦'}]},
+        {label:'スタイル', btns:[{id:'heading1',label:'見出し1',icon:'H1'},{id:'heading2',label:'見出し2',icon:'H2'},{id:'normal',label:'標準',icon:'標'}]},
+        {label:'編集', btns:[{id:'find',label:'検索',icon:'🔍'},{id:'replace',label:'置換',icon:'⇄'}]},
+      ],
+      '挿入': [
+        {label:'ページ', btns:[{id:'cover-page',label:'表紙',icon:'📔'},{id:'blank-page',label:'空白のページ',icon:'📄'},{id:'page-break',label:'ページ区切り',icon:'⏎'}]},
+        {label:'表', btns:[{id:'table',label:'表',icon:'▦'}]},
+        {label:'図', btns:[{id:'pictures',label:'画像',icon:'🖼'},{id:'shapes',label:'図形',icon:'🔷'},{id:'smartart',label:'SmartArt',icon:'🧩'},{id:'chart',label:'グラフ',icon:'📊'}]},
+        {label:'ヘッダーとフッター', btns:[{id:'header',label:'ヘッダー',icon:'⬆'},{id:'footer',label:'フッター',icon:'⬇'},{id:'page-number',label:'ページ番号',icon:'#'}]},
+        {label:'テキスト', btns:[{id:'textbox',label:'テキストボックス',icon:'📝'},{id:'wordart',label:'ワードアート',icon:'🎨'},{id:'insert-object',label:'オブジェクト',icon:'📦'}]},
+      ],
+      'デザイン': [
+        {label:'ドキュメントの書式設定', btns:[{id:'theme',label:'テーマ',icon:'🎨'},{id:'style-set',label:'スタイルセット',icon:'✨'},{id:'watermark',label:'透かし',icon:'💧'}]},
+      ],
+      'レイアウト': [
+        {label:'ページ設定', btns:[{id:'margins',label:'余白',icon:'▭'},{id:'orientation',label:'印刷の向き',icon:'🔄'},{id:'size',label:'サイズ',icon:'📐'},{id:'columns',label:'段組み',icon:'❘❘'},{id:'breaks',label:'区切り',icon:'⏸'},{id:'hyphenation',label:'ハイフネーション',icon:'-'}]},
+        {label:'配置', btns:[{id:'wrap-text',label:'文字列の折り返し',icon:'↩'},{id:'align',label:'配置',icon:'⊞'}]},
+      ],
+      '参考資料': [
+        {label:'目次', btns:[{id:'toc',label:'目次',icon:'📑'},{id:'toc-add-text',label:'テキストの追加',icon:'➕'},{id:'toc-update',label:'目次の更新',icon:'🔄'}]},
+        {label:'脚注', btns:[{id:'footnote',label:'脚注の挿入',icon:'¹'},{id:'endnote',label:'文末脚注の挿入',icon:'ⁱ'},{id:'show-notes',label:'脚注の表示',icon:'👁'}]},
+        {label:'参考資料', btns:[{id:'citation',label:'引用文献の挿入',icon:'❝'},{id:'manage-sources',label:'文献目録の管理',icon:'📇'},{id:'bibliography',label:'文献目録',icon:'📚'}]},
+        {label:'図表', btns:[{id:'insert-caption',label:'図表番号の挿入',icon:'🏷'},{id:'insert-toc-figures',label:'図表目次の挿入',icon:'📋'},{id:'cross-reference',label:'相互参照',icon:'🔗'}]},
+        {label:'索引', btns:[{id:'mark-entry',label:'索引登録',icon:'🔖'},{id:'insert-index',label:'索引の挿入',icon:'📇'}]},
+        {label:'引用文献一覧', btns:[{id:'mark-citation',label:'引用の登録',icon:'⚖'},{id:'insert-toa',label:'引用文献一覧の挿入',icon:'📜'}]},
+      ],
+      '校閲': [
+        {label:'文章校正', btns:[{id:'spelling',label:'スペルチェックと文章校正',icon:'✓'},{id:'thesaurus',label:'類義語辞典',icon:'📖'},{id:'word-count',label:'文字カウント',icon:'🔢'}]},
+        {label:'音声読み上げ', btns:[{id:'read-aloud',label:'読み上げ',icon:'🔊'}]},
+        {label:'アクセシビリティ', btns:[{id:'accessibility-check',label:'アクセシビリティチェック',icon:'♿'}]},
+        {label:'言語', btns:[{id:'translate',label:'翻訳',icon:'🌐'},{id:'language',label:'言語',icon:'あ'}]},
+        {label:'コメント', btns:[{id:'new-comment',label:'新しいコメント',icon:'💬'},{id:'delete-comment',label:'削除',icon:'🗑'},{id:'next-comment',label:'次へ',icon:'▶'}]},
+        {label:'変更履歴', btns:[{id:'track-changes',label:'変更履歴の記録',icon:'✏'},{id:'show-markup',label:'変更内容の表示',icon:'👁'},{id:'reviewing-pane',label:'校閲ウィンドウ',icon:'📋'}]},
+        {label:'変更箇所', btns:[{id:'accept-change',label:'承諾',icon:'✅'},{id:'reject-change',label:'元に戻す',icon:'↩'},{id:'next-change',label:'次へ',icon:'▶'}]},
+        {label:'比較', btns:[{id:'compare-docs',label:'比較',icon:'⚖'}]},
+        {label:'保護', btns:[{id:'restrict-editing',label:'編集の制限',icon:'🔒'},{id:'protect-document',label:'文書の保護',icon:'🔐'}]},
+      ],
+      '表示': [
+        {label:'表示', btns:[{id:'read-mode',label:'閲覧モード',icon:'📖'},{id:'print-layout',label:'印刷レイアウト',icon:'🖨'}]},
+        {label:'表示設定', btns:[{id:'ruler',label:'ルーラー',icon:'📏'},{id:'gridlines',label:'グリッド線',icon:'▦'},{id:'nav-pane',label:'ナビゲーションウィンドウ',icon:'🧭'}]},
+        {label:'マクロ', btns:[{id:'record-macro',label:'マクロの記録',icon:'⏺'}]},
+      ],
+    }
+  },
+  excel: {
+    tabs: ['ホーム','挿入','ページレイアウト','数式','データ','校閲','表示'],
+    groups: {
+      'ホーム': [
+        {label:'クリップボード', btns:[{id:'paste',label:'貼り付け',icon:'📋'},{id:'copy',label:'コピー',icon:'📄'}]},
+        {label:'フォント', btns:[{id:'bold',label:'太字',icon:'B'},{id:'italic',label:'斜体',icon:'I'},{id:'borders',label:'罫線',icon:'▦'},{id:'fill-color',label:'塗りつぶしの色',icon:'🎨'}]},
+        {label:'配置', btns:[{id:'align-center',label:'中央揃え',icon:'≣'},{id:'wrap-text',label:'折り返して全体を表示',icon:'↩'},{id:'merge-center',label:'セルを結合して中央揃え',icon:'⬜'}]},
+        {label:'数値', btns:[{id:'number-format',label:'表示形式',icon:'¥'},{id:'percent',label:'パーセントスタイル',icon:'%'}]},
+        {label:'スタイル', btns:[{id:'conditional-formatting',label:'条件付き書式',icon:'🎯'},{id:'format-as-table',label:'テーブルとして書式設定',icon:'📋'},{id:'cell-styles',label:'セルのスタイル',icon:'🖌'}]},
+        {label:'セル', btns:[{id:'insert-cell',label:'挿入',icon:'➕'},{id:'delete-cell',label:'削除',icon:'➖'}]},
+        {label:'編集', btns:[{id:'autosum',label:'オートSUM',icon:'Σ'},{id:'sort-filter',label:'並べ替えとフィルター',icon:'🔽'},{id:'find-select',label:'検索と選択',icon:'🔍'}]},
+      ],
+      '挿入': [
+        {label:'テーブル', btns:[{id:'pivot-table',label:'ピボットテーブル',icon:'📊'},{id:'table',label:'テーブル',icon:'▦'}]},
+        {label:'図', btns:[{id:'pictures',label:'画像',icon:'🖼'},{id:'shapes',label:'図形',icon:'🔷'},{id:'icons',label:'アイコン',icon:'⭐'},{id:'smartart',label:'SmartArt',icon:'🧩'}]},
+        {label:'アドイン', btns:[{id:'get-add-ins',label:'アドインの取得',icon:'🧩'},{id:'my-add-ins',label:'マイアドイン',icon:'📦'}]},
+        {label:'グラフ', btns:[{id:'recommended-charts',label:'おすすめグラフ',icon:'📈'},{id:'column-chart',label:'縦棒',icon:'📊'},{id:'line-chart',label:'折れ線',icon:'📉'},{id:'pie-chart',label:'円',icon:'🥧'},{id:'pivot-chart',label:'ピボットグラフ',icon:'📊'},{id:'trendline',label:'近似曲線',icon:'📈'}]},
+        {label:'スパークライン', btns:[{id:'sparkline-line',label:'折れ線',icon:'〰'},{id:'sparkline-column',label:'縦棒',icon:'▁▃▅'}]},
+        {label:'フィルター', btns:[{id:'insert-slicer',label:'スライサー',icon:'🎚'},{id:'insert-timeline',label:'タイムライン',icon:'📅'}]},
+        {label:'リンク', btns:[{id:'insert-link',label:'リンク',icon:'🔗'}]},
+        {label:'テキスト', btns:[{id:'textbox',label:'テキストボックス',icon:'📝'},{id:'header-footer',label:'ヘッダーとフッター',icon:'⬆'},{id:'wordart',label:'ワードアート',icon:'🎨'}]},
+        {label:'記号と特殊文字', btns:[{id:'equation',label:'数式',icon:'∑'},{id:'symbol',label:'記号と特殊文字',icon:'Ω'}]},
+      ],
+      'ページレイアウト': [
+        {label:'テーマ', btns:[{id:'themes',label:'テーマ',icon:'🎨'}]},
+        {label:'ページ設定', btns:[{id:'margins',label:'余白',icon:'▭'},{id:'orientation',label:'印刷の向き',icon:'🔄'},{id:'size',label:'サイズ',icon:'📐'},{id:'print-area',label:'印刷範囲',icon:'⬚'},{id:'breaks',label:'改ページ',icon:'⏸'},{id:'print-titles',label:'印刷タイトル',icon:'📌'}]},
+        {label:'拡大縮小印刷', btns:[{id:'scale-width',label:'横',icon:'↔'},{id:'scale-height',label:'縦',icon:'↕'},{id:'scale-percent',label:'拡大縮小',icon:'🔍'}]},
+        {label:'シートのオプション', btns:[{id:'gridlines-view',label:'目盛線',icon:'▦'},{id:'headings-view',label:'見出し',icon:'#'}]},
+        {label:'配置', btns:[{id:'align-objects',label:'配置',icon:'⊞'},{id:'group-objects',label:'グループ化',icon:'📦'}]},
+      ],
+      '数式': [
+        {label:'関数ライブラリ', btns:[{id:'insert-function',label:'関数の挿入',icon:'fx'},{id:'autosum2',label:'オートSUM',icon:'Σ'},{id:'logical',label:'論理',icon:'⊤'},{id:'text-func',label:'文字列操作',icon:'Aa'}]},
+        {label:'定義された名前', btns:[{id:'define-name',label:'名前の定義',icon:'🏷'},{id:'name-manager',label:'名前の管理',icon:'📇'}]},
+        {label:'ワークシート分析', btns:[{id:'show-formulas',label:'数式の表示',icon:'👁'},{id:'error-check',label:'エラーチェック',icon:'⚠'},{id:'watch-window',label:'ウォッチウィンドウ',icon:'👀'}]},
+        {label:'計算方法', btns:[{id:'calc-options',label:'計算方法の設定',icon:'⚙'},{id:'calc-now',label:'再計算実行',icon:'🔄'}]},
+      ],
+      'データ': [
+        {label:'データの取得と変換', btns:[{id:'get-data',label:'データの取得',icon:'🗄'},{id:'from-text-csv',label:'テキストまたはCSVから',icon:'📄'},{id:'from-web',label:'Webから',icon:'🌐'},{id:'from-table-range',label:'テーブルまたは範囲から',icon:'▦'},{id:'recent-sources',label:'最近使ったソース',icon:'🕒'},{id:'existing-connections',label:'既存の接続',icon:'🔗'}]},
+        {label:'クエリと接続', btns:[{id:'refresh-all',label:'すべて更新',icon:'🔄'},{id:'queries-connections',label:'クエリと接続',icon:'📑'},{id:'query-properties',label:'プロパティ',icon:'ℹ'},{id:'edit-links',label:'リンクの編集',icon:'🔗'}]},
+        {label:'並べ替えとフィルター', btns:[{id:'sort',label:'並べ替え',icon:'🔤'},{id:'filter',label:'フィルター',icon:'🔽'},{id:'clear-filter',label:'クリア',icon:'🚫'},{id:'reapply-filter',label:'再適用',icon:'♻'},{id:'filter-advanced',label:'詳細設定',icon:'⚙'}]},
+        {label:'データツール', btns:[{id:'text-to-columns',label:'区切り位置',icon:'✂'},{id:'flash-fill',label:'フラッシュフィル',icon:'⚡'},{id:'remove-duplicates',label:'重複の削除',icon:'🗑'},{id:'data-validation',label:'データの入力規則',icon:'✅'},{id:'consolidate',label:'統合',icon:'🧷'},{id:'data-model',label:'データモデル',icon:'🧩'}]},
+        {label:'予測', btns:[{id:'what-if-analysis',label:'What-If分析',icon:'🔀'},{id:'forecast-sheet',label:'予測シート',icon:'📅'}]},
+        {label:'アウトライン', btns:[{id:'group',label:'グループ化',icon:'📦'},{id:'ungroup',label:'グループ解除',icon:'📤'},{id:'subtotal',label:'小計',icon:'∑'}]},
+      ],
+      '校閲': [
+        {label:'文章校正', btns:[{id:'spelling',label:'スペルチェック',icon:'✓'},{id:'thesaurus',label:'類義語辞典',icon:'📖'}]},
+        {label:'アクセシビリティ', btns:[{id:'accessibility-check',label:'アクセシビリティチェック',icon:'♿'}]},
+        {label:'音声読み上げ', btns:[{id:'read-aloud',label:'読み上げ',icon:'🔊'}]},
+        {label:'言語', btns:[{id:'translate',label:'翻訳',icon:'🌐'}]},
+        {label:'コメント', btns:[{id:'new-comment',label:'新しいコメント',icon:'💬'},{id:'delete-comment',label:'削除',icon:'🗑'}]},
+        {label:'変更', btns:[{id:'protect-sheet',label:'シートの保護',icon:'🔒'},{id:'protect-workbook',label:'ブックの保護',icon:'🔐'}]},
+      ],
+      '表示': [
+        {label:'ブックの表示', btns:[{id:'normal-view',label:'標準',icon:'▦'},{id:'page-break-preview',label:'改ページプレビュー',icon:'🔲'},{id:'custom-views',label:'ユーザー設定のビュー',icon:'👁'}]},
+        {label:'表示', btns:[{id:'gridlines-check',label:'目盛線',icon:'▦'},{id:'formula-bar',label:'数式バー',icon:'fx'},{id:'headings-check',label:'見出し',icon:'#'}]},
+        {label:'ズーム', btns:[{id:'zoom',label:'ズーム',icon:'🔍'},{id:'zoom-100',label:'100%',icon:'💯'},{id:'zoom-selection',label:'選択範囲に合わせて拡大/縮小',icon:'🔲'}]},
+        {label:'ウィンドウ', btns:[{id:'freeze-panes',label:'ウィンドウ枠の固定',icon:'📌'},{id:'split',label:'分割',icon:'⊟'},{id:'new-window',label:'新しいウィンドウを開く',icon:'🪟'}]},
+        {label:'マクロ', btns:[{id:'record-macro',label:'マクロの記録',icon:'⏺'}]},
+      ],
+    }
+  }
+};
+
+// ===== 課題データ（一般40問＋エキスパート20問＝全60問） =====
+const TASKS = [
+  {app:'word', instruction:'選択した文字を「太字」にしなさい。', tab:'ホーム', btnId:'bold', level:'general'},
+  {app:'word', instruction:'選択した文字に「下線」を付けなさい。', tab:'ホーム', btnId:'underline', level:'general'},
+  {app:'word', instruction:'段落の「行と段落の間隔」を変更しなさい。', tab:'ホーム', btnId:'line-spacing', level:'general'},
+  {app:'word', instruction:'見出しに「見出し1」のスタイルを適用しなさい。', tab:'ホーム', btnId:'heading1', level:'general'},
+  {app:'word', instruction:'文書に「表紙」を挿入しなさい。', tab:'挿入', btnId:'cover-page', level:'general'},
+  {app:'word', instruction:'文書に「画像」を挿入しなさい。', tab:'挿入', btnId:'pictures', level:'general'},
+  {app:'word', instruction:'すべてのページに「ページ番号」を挿入しなさい。', tab:'挿入', btnId:'page-number', level:'general'},
+  {app:'word', instruction:'見出しを使って「目次」を自動作成しなさい。', tab:'参考資料', btnId:'toc', level:'general'},
+  {app:'word', instruction:'ページの「余白」を変更しなさい。', tab:'レイアウト', btnId:'margins', level:'general'},
+  {app:'word', instruction:'文書の「スペルチェックと文章校正」を実行しなさい。', tab:'校閲', btnId:'spelling', level:'general'},
+  {app:'excel', instruction:'選択したセルを「太字」にしなさい。', tab:'ホーム', btnId:'bold', level:'general'},
+  {app:'excel', instruction:'セルを「結合して中央揃え」にしなさい。', tab:'ホーム', btnId:'merge-center', level:'general'},
+  {app:'excel', instruction:'選択範囲の合計を「オートSUM」で計算しなさい。', tab:'ホーム', btnId:'autosum', level:'general'},
+  {app:'excel', instruction:'データに「条件付き書式」を設定しなさい。', tab:'ホーム', btnId:'conditional-formatting', level:'general'},
+  {app:'excel', instruction:'選択範囲を「テーブルとして書式設定」しなさい。', tab:'ホーム', btnId:'format-as-table', level:'general'},
+  {app:'excel', instruction:'データを「並べ替え」しなさい。', tab:'データ', btnId:'sort', level:'general'},
+  {app:'excel', instruction:'選択したデータから「おすすめグラフ」を挿入しなさい。', tab:'挿入', btnId:'recommended-charts', level:'general'},
+  {app:'excel', instruction:'セルの入力値を制限する「データの入力規則」を設定しなさい。', tab:'データ', btnId:'data-validation', level:'general'},
+  {app:'excel', instruction:'ワークシートを「保護」しなさい。', tab:'校閲', btnId:'protect-sheet', level:'general'},
+  {app:'excel', instruction:'印刷時に見出し行を固定する「印刷タイトル」を設定しなさい。', tab:'ページレイアウト', btnId:'print-titles', level:'general'},
+  // --- 追加分（ワード） ---
+  {app:'word', instruction:'選択した文字を「斜体」にしなさい。', tab:'ホーム', btnId:'italic', level:'general'},
+  {app:'word', instruction:'選択した文字に「蛍光ペン」で色を付けなさい。', tab:'ホーム', btnId:'highlight', level:'general'},
+  {app:'word', instruction:'選択した段落に「箇条書き」を設定しなさい。', tab:'ホーム', btnId:'bullets', level:'general'},
+  {app:'word', instruction:'選択した段落を「中央揃え」にしなさい。', tab:'ホーム', btnId:'align-center', level:'general'},
+  {app:'word', instruction:'文書に「表」を挿入しなさい。', tab:'挿入', btnId:'table', level:'general'},
+  {app:'word', instruction:'文書に「ヘッダー」を挿入しなさい。', tab:'挿入', btnId:'header', level:'general'},
+  {app:'word', instruction:'文書のレイアウトを「段組み」に設定しなさい。', tab:'レイアウト', btnId:'columns', level:'general'},
+  {app:'word', instruction:'文中の語句に「脚注」を挿入しなさい。', tab:'参考資料', btnId:'footnote', level:'general'},
+  {app:'word', instruction:'選択した箇所に「新しいコメント」を追加しなさい。', tab:'校閲', btnId:'new-comment', level:'general'},
+  {app:'word', instruction:'文書を「閲覧モード」で表示しなさい。', tab:'表示', btnId:'read-mode', level:'general'},
+  // --- 追加分（エクセル） ---
+  {app:'excel', instruction:'選択したセルを「斜体」にしなさい。', tab:'ホーム', btnId:'italic', level:'general'},
+  {app:'excel', instruction:'選択したセルに「塗りつぶしの色」を設定しなさい。', tab:'ホーム', btnId:'fill-color', level:'general'},
+  {app:'excel', instruction:'選択したセルの表示形式を「パーセントスタイル」にしなさい。', tab:'ホーム', btnId:'percent', level:'general'},
+  {app:'excel', instruction:'選択範囲を「並べ替えとフィルター」で並べ替えなさい。', tab:'ホーム', btnId:'sort-filter', level:'general'},
+  {app:'excel', instruction:'選択したデータから「縦棒」グラフを挿入しなさい。', tab:'挿入', btnId:'column-chart', level:'general'},
+  {app:'excel', instruction:'選択範囲に「ピボットテーブル」を挿入しなさい。', tab:'挿入', btnId:'pivot-table', level:'general'},
+  {app:'excel', instruction:'印刷する「印刷範囲」を設定しなさい。', tab:'ページレイアウト', btnId:'print-area', level:'general'},
+  {app:'excel', instruction:'数式の「エラーチェック」を実行しなさい。', tab:'数式', btnId:'error-check', level:'general'},
+  {app:'excel', instruction:'選択範囲の「重複の削除」を実行しなさい。', tab:'データ', btnId:'remove-duplicates', level:'general'},
+  {app:'excel', instruction:'先頭行が常に見えるように「ウィンドウ枠の固定」を設定しなさい。', tab:'表示', btnId:'freeze-panes', level:'general'},
+  // --- エキスパート（ワード） ---
+  {app:'word', instruction:'文書の内容を変更できないように「編集の制限」を設定しなさい。', tab:'校閲', btnId:'restrict-editing', level:'expert'},
+  {app:'word', instruction:'2つの文書を「比較」して差分を確認しなさい。', tab:'校閲', btnId:'compare-docs', level:'expert'},
+  {app:'word', instruction:'操作手順を記録する「マクロの記録」を開始しなさい。', tab:'表示', btnId:'record-macro', level:'expert'},
+  {app:'word', instruction:'文書に「オブジェクト」を埋め込みなさい。', tab:'挿入', btnId:'insert-object', level:'expert'},
+  {app:'word', instruction:'段組みされた文書に「ハイフネーション」を設定しなさい。', tab:'レイアウト', btnId:'hyphenation', level:'expert'},
+  {app:'word', instruction:'図表番号を参照する「相互参照」を挿入しなさい。', tab:'参考資料', btnId:'cross-reference', level:'expert'},
+  {app:'word', instruction:'引用した資料の一覧である「文献目録」を挿入しなさい。', tab:'参考資料', btnId:'bibliography', level:'expert'},
+  {app:'word', instruction:'文書全体の配色・フォントを変更する「テーマ」を適用しなさい。', tab:'デザイン', btnId:'theme', level:'expert'},
+  {app:'word', instruction:'文書の背景に「透かし」を入れなさい。', tab:'デザイン', btnId:'watermark', level:'expert'},
+  {app:'word', instruction:'見出しなどの見た目をまとめて変える「スタイルセット」を適用しなさい。', tab:'デザイン', btnId:'style-set', level:'expert'},
+  // --- エキスパート（エクセル） ---
+  {app:'excel', instruction:'ブック全体の構成を変更できないように「ブックの保護」を設定しなさい。', tab:'校閲', btnId:'protect-workbook', level:'expert'},
+  {app:'excel', instruction:'よく使う範囲に名前を付けて管理する「名前の管理」を開きなさい。', tab:'数式', btnId:'name-manager', level:'expert'},
+  {app:'excel', instruction:'複数シートのデータをまとめる「統合」を実行しなさい。', tab:'データ', btnId:'consolidate', level:'expert'},
+  {app:'excel', instruction:'1つのセルの文字列を複数列に分ける「区切り位置」を実行しなさい。', tab:'データ', btnId:'text-to-columns', level:'expert'},
+  {app:'excel', instruction:'表示状態を保存しておく「ユーザー設定のビュー」を追加しなさい。', tab:'表示', btnId:'custom-views', level:'expert'},
+  {app:'excel', instruction:'数式の値を監視できる「ウォッチウィンドウ」を開きなさい。', tab:'数式', btnId:'watch-window', level:'expert'},
+  {app:'excel', instruction:'操作手順を記録する「マクロの記録」を開始しなさい。', tab:'表示', btnId:'record-macro', level:'expert'},
+  {app:'excel', instruction:'ピボットテーブルを絞り込む「スライサー」を挿入しなさい。', tab:'挿入', btnId:'insert-slicer', level:'expert'},
+  {app:'excel', instruction:'ピボットテーブルを元に「ピボットグラフ」を作成しなさい。', tab:'挿入', btnId:'pivot-chart', level:'expert'},
+  {app:'excel', instruction:'グラフに将来の傾向を示す「近似曲線」を追加しなさい。', tab:'挿入', btnId:'trendline', level:'expert'},
+];
+
+// ===== 状態 =====
+let current = [];
+let idx = 0;
+let perfectCount = 0;
+let results = []; // {ok:true, mistakes, hint}
+let activeTab = '';
+let mistakesThisTask = 0;
+let hintUsedThisTask = false;
+let streak = 0;       // 連続「一発正解」数（モチベ猫ギミック用）
+let bestStreak = 0;
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// ===== モチベ猫ギミック =====
+let catToastTimer = null;
+function showCatToast(correct, streakCount, rateText){
+  const el = document.getElementById('catToast');
+  const emojiEl = document.getElementById('catToastEmoji');
+  const msgEl = document.getElementById('catToastMsg');
+  let emoji, msg, isStreak = false;
+
+  if(correct){
+    if(streakCount >= 8){ emoji='🐯'; msg=`${streakCount}連続一発正解！猫が虎になってきた🔥`; isStreak=true; }
+    else if(streakCount >= 5){ emoji='😻'; msg=`${streakCount}連続一発正解、絶好調にゃ！`; isStreak=true; }
+    else if(streakCount >= 3){ emoji='🙀'; msg=`${streakCount}連続一発正解！乗ってきたにゃ`; isStreak=true; }
+    else { emoji='😸'; msg='正解にゃ！'; }
+    if(rateText) msg += `\n正答率 ${rateText}`;
+  } else {
+    const encourage = ['大丈夫、次いこう！','ここ覚えたら勝ちにゃ','どんまい、切り替えて！'];
+    emoji='😿'; msg=encourage[Math.floor(Math.random()*encourage.length)];
+  }
+
+  emojiEl.textContent = emoji;
+  msgEl.textContent = msg;
+  el.classList.remove('show','wrong','streak');
+  void el.offsetWidth;
+  el.classList.add('show');
+  if(!correct) el.classList.add('wrong');
+  if(isStreak) el.classList.add('streak');
+
+  clearTimeout(catToastTimer);
+  catToastTimer = setTimeout(()=>{ el.classList.remove('show'); }, 2600);
+}
+
+function startSim(mode){
+  if(mode==='word') current = shuffle(TASKS.filter(t=>t.app==='word' && t.level==='general'));
+  else if(mode==='excel') current = shuffle(TASKS.filter(t=>t.app==='excel' && t.level==='general'));
+  else if(mode==='all') current = shuffle(TASKS.filter(t=>t.level==='general'));
+  else if(mode==='wordExpert') current = shuffle(TASKS.filter(t=>t.app==='word' && t.level==='expert'));
+  else if(mode==='excelExpert') current = shuffle(TASKS.filter(t=>t.app==='excel' && t.level==='expert'));
+  else if(mode==='allExpert') current = shuffle(TASKS.filter(t=>t.level==='expert'));
+  else current = shuffle(TASKS);
+  idx = 0; perfectCount = 0; results = []; streak = 0; bestStreak = 0;
+  document.getElementById('menu-screen').style.display = 'none';
+  document.getElementById('end-screen').classList.remove('show');
+  document.getElementById('sim-screen').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderTask();
+}
+
+function renderTask(){
+  const t = current[idx];
+  mistakesThisTask = 0;
+  hintUsedThisTask = false;
+  activeTab = 'ホーム'; // 毎回ホームタブから開始（本番同様、正しいタブへ自分で移動する）
+  document.getElementById('simProgress').textContent = `${idx+1} / ${current.length}`;
+  document.getElementById('simScoreLabel').textContent = `一発正解 ${perfectCount}`;
+  document.getElementById('instructionText').textContent = (t.app==='word'?'【Word】 ':'【Excel】 ') + t.instruction;
+  document.getElementById('windowTitle').textContent = t.app==='word' ? '文書1 - Word' : 'Book1 - Excel';
+  document.getElementById('appWindow').className = t.app==='word' ? 'app-window app-word' : 'app-window app-excel';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  renderRibbon();
+  renderCanvas();
+}
+
+function renderRibbon(){
+  const t = current[idx];
+  const rb = RIBBONS[t.app];
+  document.getElementById('ribbonTabs').innerHTML = rb.tabs.map(tab=>`
+    <button class="ribbon-tab${tab===activeTab?' active':''}" onclick="switchTab('${tab}')">${tab}</button>
+  `).join('');
+  const groups = rb.groups[activeTab] || [];
+  document.getElementById('ribbonBody').innerHTML = groups.map(g=>`
+    <div class="ribbon-group">
+      <div class="ribbon-btns">
+        ${g.btns.map(b=>`<button class="ribbon-btn" id="rb-${b.id}" onclick="clickBtn('${b.id}')"><span class="ic">${iconHtml(b.id, b.icon)}</span><span class="lb">${b.label}</span></button>`).join('')}
+      </div>
+      <div class="ribbon-group-label">${g.label}</div>
+    </div>
+  `).join('');
+}
+
+function renderCanvas(){
+  const t = current[idx];
+  const area = document.getElementById('canvasArea');
+  if(t.app==='word'){
+    area.innerHTML = `<div class="canvas-doc">これはサンプル文書です。<span class="sel">この部分が選択されています</span>。ここに指示された操作を適用します。</div>`;
+  } else {
+    const cols = ['A','B','C','D'];
+    let rows = '<tr><th></th>' + cols.map(c=>`<th>${c}</th>`).join('') + '</tr>';
+    for(let r=1;r<=5;r++){
+      rows += '<tr><th>'+r+'</th>' + cols.map((c,ci)=>{
+        const sel = (r===2 && ci===1) ? ' sel' : '';
+        return `<td class="${sel.trim()}">${r===1?'項目'+ (ci+1):(r*10+ci)}</td>`;
+      }).join('') + '</tr>';
+    }
+    area.innerHTML = `<div class="canvas-grid"><table>${rows}</table></div>`;
+  }
+}
+
+function switchTab(tab){
+  activeTab = tab;
+  renderRibbon();
+}
+
+function clickBtn(btnId){
+  const t = current[idx];
+  const el = document.getElementById('rb-'+btnId);
+  if(btnId === t.btnId){
+    el.classList.add('flash-ok');
+    document.getElementById('feedback').textContent = '✅ 正解！次の問題へ進むにゃ';
+    document.getElementById('feedback').className = 'feedback ok';
+    results.push({instruction:t.instruction, ok:true, mistakes:mistakesThisTask, hint:hintUsedThisTask});
+    const isPerfect = (mistakesThisTask===0 && !hintUsedThisTask);
+    if(isPerfect){ perfectCount++; streak++; if(streak > bestStreak) bestStreak = streak; }
+    else { streak = 0; }
+    const rate = Math.round(perfectCount/(idx+1)*100);
+    showCatToast(true, streak, `${rate}%（${idx+1}問中${perfectCount}問）`);
+    document.getElementById('simScoreLabel').textContent = `一発正解 ${perfectCount}`;
+    setTimeout(()=>{
+      idx++;
+      if(idx < current.length) renderTask();
+      else showResult();
+    }, 700);
+  } else {
+    mistakesThisTask++;
+    el.classList.add('flash-ng');
+    setTimeout(()=>{ el.classList.remove('flash-ng'); }, 500);
+    document.getElementById('feedback').textContent = '❌ ちがうにゃ。もう一度探してみて';
+    document.getElementById('feedback').className = 'feedback ng';
+    showCatToast(false, streak);
+  }
+}
+
+function showHint(){
+  const t = current[idx];
+  hintUsedThisTask = true;
+  activeTab = t.tab;
+  renderRibbon();
+  document.getElementById('feedback').textContent = `💡「${t.tab}」タブの中を探してみて！`;
+  document.getElementById('feedback').className = 'feedback';
+}
+
+function showResult(){
+  document.getElementById('sim-screen').classList.remove('show');
+  document.getElementById('end-screen').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+  const total = current.length;
+  document.getElementById('endScore').textContent = `${perfectCount} / ${total}（一発正解）`;
+  let msg = '', face = '';
+  const rate = perfectCount/total;
+  if(rate>=0.9){ msg = 'すごいにゃ！操作場所をよく覚えてる。本番も自信を持って！'; face='😻'; }
+  else if(rate>=0.6){ msg = 'いい調子にゃ。間違えた操作は下の表で復習しよう。'; face='😺'; }
+  else if(rate>=0.3){ msg = 'まずはリボンのどこに何があるか、慣れるところからにゃ。'; face='😼'; }
+  else { msg = '一歩ずつでOK！間違えた操作だけもう一度触ってみようにゃ。'; face='😿'; }
+  document.getElementById('endMsg').textContent = msg;
+  document.getElementById('endCatFace').textContent = face;
+  document.getElementById('endStreakMsg').textContent = bestStreak>=3 ? `🔥 最高連続一発正解：${bestStreak}問！` : '';
+
+  document.getElementById('detailBody').innerHTML = results.map(r=>{
+    let res, color;
+    if(r.hint){ res='💡 ヒント使用'; color='#fbbf24'; }
+    else if(r.mistakes===0){ res='◎ 一発正解'; color='#34d399'; }
+    else { res=`△ ${r.mistakes}回やり直し`; color='#67e8f9'; }
+    return `<tr><td>${r.instruction}</td><td style="color:${color};font-weight:800;">${res}</td></tr>`;
+  }).join('');
+}
+
+function exitSim(){
+  document.getElementById('sim-screen').classList.remove('show');
+  document.getElementById('end-screen').classList.remove('show');
+  document.getElementById('menu-screen').style.display = 'block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showMenu(){ exitSim(); }
+function closeWindow(){
+  exitSim();
+}
+function toggleMinimize(){
+  document.getElementById('appWindow').classList.toggle('minimized');
+}
+function toggleMaximize(){
+  document.getElementById('appWindow').classList.toggle('windowed');
+}
+document.getElementById('windowTitle') && document.getElementById('windowTitle').addEventListener('click', function(){
+  const win = document.getElementById('appWindow');
+  if(win.classList.contains('minimized')) win.classList.remove('minimized');
+});
+</script>
+</body>
+</html>
