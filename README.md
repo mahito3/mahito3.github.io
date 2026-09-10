@@ -2,12 +2,12 @@
 
 <img src="./screenshot.png" width="448" />
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?logo=github)](https://75845.github.io/dt/ai.html)
-[![Questions](https://img.shields.io/badge/問題数-419問-blue)](https://75845.github.io/dt/ai.html)
-[![Free](https://img.shields.io/badge/料金-完全無料-orange)](https://75845.github.io/dt/ai.html)
-[![2026 Syllabus](https://img.shields.io/badge/シラバス-2026年対応-red)](https://75845.github.io/dt/ai.html)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?logo=github)](https://mahito3.github.io/ai.html)
+[![Questions](https://img.shields.io/badge/問題数-419問-blue)](https://mahito3.github.io/ai.html)
+[![Free](https://img.shields.io/badge/料金-完全無料-orange)](https://mahito3.github.io/ai.html)
+[![2026 Syllabus](https://img.shields.io/badge/シラバス-2026年対応-red)](https://mahito3.github.io/ai.html)
 
-👉 **https://75845.github.io/dt/ai.html**
+👉 **https://mahito3.github.io/ai.html**
 
 生成AIパスポート試験に無料で合格するための対策アプリです。  
 全419問・2026年新シラバス完全対応。スマホでもPCでも使えます。  
@@ -43,15 +43,15 @@ GitHubの⭐が増えると開発の励みになります🙏
 
 ## 📱 使い方
 👇 今すぐ挑戦（スマホ・PC対応）  
-👉 **https://75845.github.io/dt/ai.html**
+👉 **https://mahito3.github.io/ai.html**
 
 ---
 
 ## 🔗 関連アプリ
 | アプリ | URL |
 |--------|-----|
-| 🤖 生成AIパスポート最強ドリル | https://75845.github.io/dt/ai.html |
-| 🖥️ ITパスポート試験対策ドリル | https://75845.github.io/dt/it.html |
+| 🤖 生成AIパスポート最強ドリル | https://mahito3.github.io/ai.html |
+| 🖥️ ITパスポート試験対策ドリル | https://mahito3.github.io/it.html |
 
 ---
 
